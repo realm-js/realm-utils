@@ -2,25 +2,35 @@
 
 Realm-js has a set of functionality that helps solving many problems or impediments related to Promises.
 Utilities live in this repository, apart from realm-js library. Typings included
+### Install
 
+
+```bash
+npm install realm-utils --save
+```
+
+```js
+import {each, chain, Chainable, utils} from 'realm-utils'; // typescript
+const rutils = require('realm-utils'); // es6
+```
 ### Each
 Iterates a list of promises (objects) consecutively. Respects promises if provided
 ```js
 var a = [1, 2, 3];
-realm.each(a, function(num){
+realm.each(a, (num) => {
   return new Promise((resolve, reject) => {
     setTimeout(function(){
       return resolve(num++)
     }, num);
   })
-}).then(function(result){
+}).then(result => {
    // [2,3,4]
 });
 ```
 
 And another example with optional Promise
 ```js
-realm.each(a, function(num){
+realm.each(a, (num) => {
   if( num ===3) {
     return new Promise((resolve, reject) => {
       setTimeout(function(){
@@ -29,7 +39,7 @@ realm.each(a, function(num){
     })
   }
   return num;
-}).then(function(result){
+}).then(result => {
   // [1, 2, "gotcha"]
 })
 ```
