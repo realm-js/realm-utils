@@ -104,10 +104,11 @@ exports.Each = (argv, cb) => {
     return new Promise((resolve, reject) => {
         const results = [];
         const isObject = utils_1.Utils.isPlainObject(argv);
+        const dataLength = isObject ? Object.keys(argv).length : argv.length;
         let index = -1;
         let iterate = () => {
             index++;
-            if (index < argv.length) {
+            if (index < dataLength) {
                 let key = isObject ? Object.keys(argv)[index] : index;
                 let value = isObject ? argv[key] : argv[index];
                 if (utils_1.Utils.isPromise(value)) {
