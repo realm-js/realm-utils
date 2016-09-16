@@ -52,4 +52,16 @@ describe('Testing promise each', function() {
         });
     });
 
+
+	 it('Should ignore undefines', function(done) {
+
+        realm.each(undefined, function(value, key) {
+
+            return [key, value]
+        }).then(function(response) {
+            done();
+        }).catch(function(e) {
+            console.log(e);
+        });
+    });
 });

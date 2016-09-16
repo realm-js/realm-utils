@@ -104,6 +104,9 @@ exports.Each = (argv, cb) => {
     return new Promise((resolve, reject) => {
         const results = [];
         const isObject = utils_1.Utils.isPlainObject(argv);
+        if (!argv) {
+            return resolve(results);
+        }
         const dataLength = isObject ? Object.keys(argv).length : argv.length;
         let index = -1;
         let iterate = () => {

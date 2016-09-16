@@ -9,6 +9,9 @@ export var Each = (argv: any, cb: { (...args): any }) => {
     return new Promise((resolve, reject) => {
         const results = [];
         const isObject = utils.isPlainObject(argv);
+        if(!argv){
+            return resolve(results)
+        }
         const dataLength = isObject ? Object.keys(argv).length : argv.length
         let index: number = -1;
         let iterate = () => {
