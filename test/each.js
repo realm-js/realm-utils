@@ -1,5 +1,5 @@
 var should = require('should');
-var realm = require('../dist/index.js');
+var realm = require('../dist/commonjs/index.js');
 var each = realm.each;
 
 describe('Testing promise each', function() {
@@ -53,7 +53,7 @@ describe('Testing promise each', function() {
     });
 
 
-	 it('Should ignore undefines', function(done) {
+    it('Should ignore undefines', function(done) {
 
         realm.each(undefined, function(value, key) {
 

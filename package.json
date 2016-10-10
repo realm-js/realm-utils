@@ -1,9 +1,9 @@
 {
     "name": "realm-utils",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "",
-    "typings": "./dist/index.d.ts",
-    "main": "dist/index.js",
+    "typings": "./dist/typings/index.d.ts",
+    "main": "dist/commonjs/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -22,7 +22,9 @@
         "mkdirp": "^0.5.1"
     },
     "devDependencies": {
+        "babel-preset-es2015": "^6.16.0",
         "gulp": "^3.9.1",
+        "gulp-babel": "^6.1.2",
         "gulp-bump": "^2.4.0",
         "gulp-concat": "^2.6.0",
         "gulp-rename": "^1.2.2",
