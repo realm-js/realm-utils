@@ -14,7 +14,7 @@ export class Utils {
 
   // isPromise()
   static isPromise(item: any) {
-    return item !== undefined
+    return item
       && typeof item.then === 'function' &&
       typeof item.catch === 'function';
   }

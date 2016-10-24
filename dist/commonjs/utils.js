@@ -25,7 +25,7 @@ var Utils = function () {
     _createClass(Utils, null, [{
         key: 'isPromise',
         value: function isPromise(item) {
-            return item !== undefined && typeof item.then === 'function' && typeof item.catch === 'function';
+            return item && typeof item.then === 'function' && typeof item.catch === 'function';
         }
     }, {
         key: 'isNotSet',
