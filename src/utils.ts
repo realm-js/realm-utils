@@ -24,6 +24,13 @@ export class Utils {
     return input === undefined || input === null;
   }
 
+  static isMap(input: any) {
+    if (typeof Map === "undefined") {
+      return false;
+    }
+    return input instanceof Map;
+  }
+
   static isFunction(value: any) {
     var tag = this.isObject(value) ? objectToString.call(value) : '';
     return tag === funcTag2 || tag == funcTag || tag == genTag;

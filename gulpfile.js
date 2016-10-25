@@ -30,6 +30,13 @@ gulp.task('push', function(done) {
     });
 })
 
+gulp.task('watch', ['dist'], function() {
+    gulp.watch(['src/**/*.ts'], () => {
+        runSequence('dist');
+    });
+});
+
+
 gulp.task('dist', function() {
 
 

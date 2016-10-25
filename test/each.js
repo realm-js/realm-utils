@@ -64,4 +64,19 @@ describe('Testing promise each', function() {
             console.log(e);
         });
     });
+
+
+    it('Should work with Maps', function(done) {
+        let map = new Map();
+        map.set("hello", "world")
+        map.set("foo", "bar")
+        realm.each(map, function(value, key) {
+            return new Promise((resolve, reject) => {
+                return resolve(key)
+            });
+        }).then(function(response) {
+            response.should.deepEqual(['hello', 'foo'])
+            done();
+        }).catch(done);
+    });
 });

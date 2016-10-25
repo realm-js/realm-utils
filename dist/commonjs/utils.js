@@ -33,6 +33,14 @@ var Utils = function () {
             return input === undefined || input === null;
         }
     }, {
+        key: 'isMap',
+        value: function isMap(input) {
+            if (typeof Map === "undefined") {
+                return false;
+            }
+            return input instanceof Map;
+        }
+    }, {
         key: 'isFunction',
         value: function isFunction(value) {
             var tag = this.isObject(value) ? objectToString.call(value) : '';

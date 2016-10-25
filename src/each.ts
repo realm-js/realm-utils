@@ -9,10 +9,37 @@ export var Each = (argv: any, cb: { (...args): any }) => {
     return new Promise((resolve, reject) => {
         const results = [];
         const isObject = utils.isPlainObject(argv);
-        if(!argv){
+        const isMap = utils.isMap(argv);
+
+        if (!argv) {
             return resolve(results)
         }
+        // Handle map differently
+        if (isMap) {
+            let map: Map<any, any> = argv;
+            let iterator = map.entries();
+            let iterateMap = (data: any) => {
+                if (data.value) {
+                    let [k, v] = data.value;
+                    let res = cb(...[v, k]);
+                    if (utils.isPromise(res)) {
+                        res.then(a => {
+                            results.push(a);
+                            iterateMap(iterator.next());
+                        }).catch(reject);
+                    } else {
+                        results.push(res);
+                        iterateMap(iterator.next());
+                    }
+                } else {
+                    return resolve(results);
+                }
+            }
+            iterateMap(iterator.next());
+            return;
+        }
         const dataLength = isObject ? Object.keys(argv).length : argv.length
+
         let index: number = -1;
         let iterate = () => {
             index++;
