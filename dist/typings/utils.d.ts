@@ -2,6 +2,7 @@ export declare class Utils {
     static isPromise(item: any): boolean;
     static isNotSet(input: any): boolean;
     static isMap(input: any): boolean;
+    static isSet(input: any): boolean;
     static isFunction(value: any): boolean;
     static isObject(input: any): boolean;
     static isHostObject(value: any): boolean;

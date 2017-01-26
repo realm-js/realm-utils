@@ -41,6 +41,14 @@ var Utils = function () {
             return input instanceof Map;
         }
     }, {
+        key: 'isSet',
+        value: function isSet(input) {
+            if (typeof Set === "undefined") {
+                return false;
+            }
+            return input instanceof Set;
+        }
+    }, {
         key: 'isFunction',
         value: function isFunction(value) {
             var tag = this.isObject(value) ? objectToString.call(value) : '';

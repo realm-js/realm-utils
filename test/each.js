@@ -59,6 +59,7 @@ describe('Testing promise each', function() {
 
             return [key, value]
         }).then(function(response) {
+
             done();
         }).catch(function(e) {
             console.log(e);
@@ -76,6 +77,92 @@ describe('Testing promise each', function() {
             });
         }).then(function(response) {
             response.should.deepEqual(['hello', 'foo'])
+            done();
+        }).catch(done);
+    });
+
+    it('Should work with Maps and promises', function(done) {
+        let map = new Map();
+        map.set("hello", "world")
+        map.set("foo", "bar")
+        realm.each(map, function(value, key) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    return resolve(key)
+                }, 20)
+
+            });
+        }).then(function(response) {
+            response.should.deepEqual(['hello', 'foo'])
+            done();
+        }).catch(done);
+    });
+
+
+    it('Should work with Sets', function(done) {
+        let set = new Set();
+        set.add("foo")
+        set.add("bar")
+
+        realm.each(set, function(value) {
+            return new Promise((resolve, reject) => {
+                return resolve(value)
+            });
+        }).then(function(response) {
+
+            response.should.deepEqual(['foo', 'bar'])
+            done();
+        }).catch(done);
+    });
+
+    it('Should work with Sets and promises', function(done) {
+        let set = new Set();
+        set.add("foo")
+        set.add("bar")
+
+        realm.each(set, function(value) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    return resolve(value + ".")
+                }, 20)
+            });
+        }).then(function(response) {
+            response.should.deepEqual(['foo.', 'bar.'])
+            done();
+        }).catch(done);
+    });
+
+    it('Should work with Sets and promises within', function(done) {
+        let set = new Set();
+        set.add(new Promise((resolve, reject) => {
+            return resolve("a")
+        }))
+        set.add(new Promise((resolve, reject) => {
+            return resolve("b")
+        }))
+
+
+        realm.each(set, function(value) {
+            return value;
+        }).then(function(response) {
+            response.should.deepEqual(['a', 'b'])
+            done();
+        }).catch(done);
+    });
+
+    it('Should respect undefines within', function(done) {
+        let set = new Set();
+        set.add("foo")
+        set.add("bar")
+        set.add(undefined)
+
+        realm.each(set, function(value) {
+            return new Promise((resolve, reject) => {
+                return resolve(value)
+            });
+        }).then(function(response) {
+
+            response.should.deepEqual(['foo', 'bar', undefined])
             done();
         }).catch(done);
     });

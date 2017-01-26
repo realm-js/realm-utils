@@ -10,32 +10,50 @@ exports.Each = function (argv, cb) {
         var results = [];
         var isObject = utils_1.Utils.isPlainObject(argv);
         var isMap = utils_1.Utils.isMap(argv);
+        var isSet = utils_1.Utils.isSet(argv);
         if (!argv) {
             return resolve(results);
         }
-        if (isMap) {
+        if (isMap || isSet) {
             var _ret = function () {
-                var map = argv;
-                var iterator = map.entries();
+                var iterator = void 0;
+                if (isMap) {
+                    var map = argv;
+                    iterator = map.entries();
+                }
+                if (isSet) {
+                    var set = argv;
+                    iterator = set.values();
+                }
+                var index = -1;
                 var iterateMap = function iterateMap(data) {
-                    if (data.value) {
+                    index++;
+                    if (data.done) {
+                        return resolve(results);
+                    }
+                    var k = void 0,
+                        v = void 0,
+                        res = void 0;
+                    if (isMap) {
                         var _data$value = _slicedToArray(data.value, 2);
 
-                        var k = _data$value[0];
-                        var v = _data$value[1];
+                        k = _data$value[0];
+                        v = _data$value[1];
 
-                        var res = cb.apply(undefined, [v, k]);
-                        if (utils_1.Utils.isPromise(res)) {
-                            res.then(function (a) {
-                                results.push(a);
-                                iterateMap(iterator.next());
-                            }).catch(reject);
-                        } else {
-                            results.push(res);
+                        res = cb.apply(undefined, [v, k]);
+                    }
+                    if (isSet) {
+                        v = data.value;
+                        res = cb(v);
+                    }
+                    if (utils_1.Utils.isPromise(res)) {
+                        res.then(function (a) {
+                            results.push(a);
                             iterateMap(iterator.next());
-                        }
+                        }).catch(reject);
                     } else {
-                        return resolve(results);
+                        results.push(res);
+                        iterateMap(iterator.next());
                     }
                 };
                 iterateMap(iterator.next());
