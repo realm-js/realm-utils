@@ -13,7 +13,7 @@ const genTag = '[object GeneratorFunction]';
 export class Utils {
 
   // isPromise()
-  static isPromise(item: any) {
+  static isPromise(item: any): item is Promise<any> {
     return item
       && typeof item.then === 'function' &&
       typeof item.catch === 'function';
@@ -24,27 +24,27 @@ export class Utils {
     return input === undefined || input === null;
   }
 
-  static isMap(input: any) {
+  static isMap(input: any): input is Map<any,any> {
     if (typeof Map === "undefined") {
       return false;
     }
     return input instanceof Map;
   }
 
-  static isSet(input: any) {
+  static isSet(input: any): input is Set<any> {
     if (typeof Set === "undefined") {
       return false;
     }
     return input instanceof Set;
   }
 
-  static isFunction(value: any) {
+  static isFunction(value: any): value is Function {
     var tag = this.isObject(value) ? objectToString.call(value) : '';
     return tag === funcTag2 || tag == funcTag || tag == genTag;
   }
 
   //isObject
-  static isObject(input: any) {
+  static isObject(input: any): input is Object {
     var type = typeof input;
     return !!input && (type == 'object' || type == 'function');
   }
@@ -89,12 +89,12 @@ export class Utils {
     return value;
   }
 
-  static isString(value: any) {
+  static isString(value: any): value is string {
     return typeof value === 'string';
   }
 
   // isArray
-  static isArray(input: any) {
+  static isArray(input: any): input is Array<any> {
     return Array.isArray(input);
   }
 
