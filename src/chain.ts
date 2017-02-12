@@ -40,7 +40,7 @@ let ChainClassContructor = (input: any) => {
     if (input instanceof Chainable) {
         return input;
     }
-    
+
     let instance: Object = {};
     // if that's function'
     if (utils.isFunction(input)) {
