@@ -1,6 +1,6 @@
 {
     "name": "realm-utils",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "",
     "typings": "./dist/typings/index.d.ts",
     "main": "dist/commonjs/index.js",
