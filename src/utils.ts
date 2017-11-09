@@ -6,7 +6,9 @@ const objectCtorString = funcToString.call(Object);
 const objectToString = objectProto.toString;
 const objectTag = '[object Object]';
 const funcTag = '[object Function]';
+const AsyncfuncTag = '[object AsyncFunction]';
 const funcTag2 = '[Function]';
+const AsyncfuncTag2 = '[AsyncFunction]';
 const genTag = '[object GeneratorFunction]';
 
 
@@ -40,7 +42,7 @@ export class Utils {
 
   static isFunction(value: any): value is Function {
     var tag = this.isObject(value) ? objectToString.call(value) : '';
-    return tag === funcTag2 || tag == funcTag || tag == genTag;
+    return (tag === funcTag2 || tag === AsyncfuncTag2 ) || (tag == funcTag || tag === AsyncfuncTag) || tag == genTag;
   }
 
   //isObject

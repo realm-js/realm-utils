@@ -14,7 +14,9 @@ var objectCtorString = funcToString.call(Object);
 var objectToString = objectProto.toString;
 var objectTag = '[object Object]';
 var funcTag = '[object Function]';
+var AsyncfuncTag = '[object AsyncFunction]';
 var funcTag2 = '[Function]';
+var AsyncfuncTag2 = '[AsyncFunction]';
 var genTag = '[object GeneratorFunction]';
 
 var Utils = function () {
@@ -52,7 +54,7 @@ var Utils = function () {
         key: 'isFunction',
         value: function isFunction(value) {
             var tag = this.isObject(value) ? objectToString.call(value) : '';
-            return tag === funcTag2 || tag == funcTag || tag == genTag;
+            return tag === funcTag2 || tag === AsyncfuncTag2 || tag == funcTag || tag === AsyncfuncTag || tag == genTag;
         }
     }, {
         key: 'isObject',
